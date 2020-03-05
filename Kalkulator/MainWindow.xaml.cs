@@ -25,6 +25,7 @@ namespace Kalkulator
         private string oldNumber = "0";
         private string currentStatus = "0";
         private bool specialClick = false;
+        private bool firstOperation = true;
 
         private string adjustResult(string number)
         {
@@ -32,7 +33,7 @@ namespace Kalkulator
             {
                 return number;
             }
-            else if(number.Contains("."))
+            else if (number.Contains("."))
             {
                 string adjusted = "";
                 for (int i = 0; i < 9; i++)
@@ -52,6 +53,19 @@ namespace Kalkulator
             string konw = display.Content.ToString();
             oldNumber = konw;
             specialClick = true;
+        }
+
+        private void handleFirstOperation()
+        {
+            if (!firstOperation)
+            {
+                calculations();
+            }
+            else
+            {
+                firstOperation = false;
+            }
+
         }
 
         private void numberWriter(string number)
@@ -126,9 +140,64 @@ namespace Kalkulator
             InitializeComponent();
         }
 
+        private void Dot_Click(object sender, RoutedEventArgs e)
+        {
+            numberWriter(".");
+        }
+
+        private void Equals_Click(object sender, RoutedEventArgs e)
+        {
+            calculations();
+            update();
+            operation = RESET_OPERATION;
+            firstOperation = true;
+        }
+
+        private void Division_Click(object sender, RoutedEventArgs e)
+        {
+            operation = "/";
+            handleFirstOperation();
+            update();
+        }
+
+        private void Multiply_Click(object sender, RoutedEventArgs e)
+        {
+            operation = "*";
+            handleFirstOperation();
+            update();
+        }
+
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+            operation = "-";
+            handleFirstOperation();
+            update();
+        }
+
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+            operation = "+";
+            handleFirstOperation();
+            update();
+        }
+
+        private void PlusMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (display.Content.ToString().Contains("-"))
+            {
+                display.Content = display.Content.ToString().Replace("-", "");
+            }
+            else
+            {
+                display.Content = "-" + display.Content.ToString();
+            }
+        }
+
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             display.Content = "0";
+            operation = RESET_OPERATION;
+            firstOperation = true;
             oldNumber = "0";
         }
 
@@ -182,59 +251,5 @@ namespace Kalkulator
         {
             numberWriter("0");
         }
-
-        private void Dot_Click(object sender, RoutedEventArgs e)
-        {
-            numberWriter(".");
-        }
-
-        private void Equals_Click(object sender, RoutedEventArgs e)
-        {
-            calculations();
-            update();
-            operation = RESET_OPERATION;
-        }
-
-        private void Division_Click(object sender, RoutedEventArgs e)
-        {
-            operation = "/";
-            update();
-        }
-
-        private void Multiply_Click(object sender, RoutedEventArgs e)
-        {
-            operation = "*";
-            update();
-        }
-
-        private void Minus_Click(object sender, RoutedEventArgs e)
-        {
-            operation = "-";
-            update();
-        }
-
-        private void Plus_Click(object sender, RoutedEventArgs e)
-        {
-            operation = "+";
-            update();
-        }
-
-        private void PlusMinus_Click(object sender, RoutedEventArgs e)
-        {
-            if (display.Content.ToString().Contains("-"))
-            {
-                display.Content = display.Content.ToString().Replace("-", "");
-            }
-            else
-            {
-                display.Content = "-" + display.Content.ToString();
-            }
-        }
     }
 }
-
-// TO DO 
-/*
-DODAC uzywanie operacji bez ciaglego klikania rowna się
-Dodac obcinanie stringa jesli bedzie dluzszy niz 9
- */
