@@ -26,9 +26,20 @@ namespace Kalkulator
         private string currentStatus = "0";
         private bool specialClick = false;
         private bool firstOperation = true;
+        private string message = "Out of Mem";
+
+        private void test()
+        {
+            tLabel1.Content = oldNumber;
+            tLabel2.Content = currentStatus;
+        }
 
         private string adjustResult(string number)
         {
+            if (oldNumber == message)
+            {
+                return message;
+            }
             if (number.Length < 10)
             {
                 return number;
@@ -44,7 +55,8 @@ namespace Kalkulator
             }
             else
             {
-                return "Out of Mem!";
+                oldNumber = "0";
+                return message;
             }
         }
 
@@ -104,7 +116,6 @@ namespace Kalkulator
                 }
                 else
                 {
-
                     currentStatus += number;
                     display.Content = currentStatus;
                 }
@@ -113,10 +124,16 @@ namespace Kalkulator
 
         private void calculations()
         {
-            double previous = Convert.ToDouble(oldNumber);
-            double current = Convert.ToDouble(display.Content.ToString());
-            double result = 0;
-
+            test();
+            double previous = 0.0;
+            double current = 0.0;
+            double result = 0.0;
+            if (oldNumber != message)
+            {
+                previous = Convert.ToDouble(oldNumber);
+                current = Convert.ToDouble(display.Content.ToString());
+            }
+            result = 0.0;
             switch (operation)
             {
                 case "+":
@@ -193,12 +210,17 @@ namespace Kalkulator
             }
         }
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
+        private void resetCalc()
         {
             display.Content = "0";
             operation = RESET_OPERATION;
             firstOperation = true;
             oldNumber = "0";
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            resetCalc();
         }
 
 
