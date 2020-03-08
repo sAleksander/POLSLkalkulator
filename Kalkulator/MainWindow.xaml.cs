@@ -28,12 +28,6 @@ namespace Kalkulator
         private bool firstOperation = true;
         private string message = "Out of Mem";
 
-        private void test()
-        {
-            tLabel1.Content = oldNumber;
-            tLabel2.Content = currentStatus;
-        }
-
         private string adjustResult(string number)
         {
             if (oldNumber == message)
