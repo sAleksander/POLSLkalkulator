@@ -159,55 +159,83 @@ namespace Kalkulator
 
         private void Dot_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter(".");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter(".");
+            }
         }
 
         private void Equals_Click(object sender, RoutedEventArgs e)
         {
-            calculations();
-            update();
-            operation = RESET_OPERATION;
-            firstOperation = true;
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+                calculations();
+                update();
+                operation = RESET_OPERATION;
+                firstOperation = true;
+
+            }
         }
 
         private void Division_Click(object sender, RoutedEventArgs e)
         {
-            operation = "/";
-            handleFirstOperation();
-            update();
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+                operation = "/";
+                handleFirstOperation();
+                update();
+
+            }
         }
 
         private void Multiply_Click(object sender, RoutedEventArgs e)
         {
-            operation = "*";
-            handleFirstOperation();
-            update();
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+                operation = "*";
+                handleFirstOperation();
+                update();
+
+            }
         }
 
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
-            operation = "-";
-            handleFirstOperation();
-            update();
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+                operation = "-";
+                handleFirstOperation();
+                update();
+
+            }
         }
 
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            operation = "+";
-            handleFirstOperation();
-            update();
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+                operation = "+";
+                handleFirstOperation();
+                update();
+
+            }
         }
 
         private void PlusMinus_Click(object sender, RoutedEventArgs e)
         {
-            if (display.Content.ToString().Contains("-"))
+            if ((oldNumber != message) && (display.Content.ToString() != message))
             {
-                display.Content = display.Content.ToString().Replace("-", "");
+                if (display.Content.ToString().Contains("-"))
+                {
+                    display.Content = display.Content.ToString().Replace("-", "");
+                }
+                else
+                {
+                    display.Content = "-" + display.Content.ToString();
+                }
             }
-            else
-            {
-                display.Content = "-" + display.Content.ToString();
-            }
+
         }
 
         private void resetCalc()
@@ -226,52 +254,92 @@ namespace Kalkulator
 
         private void One_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("1");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("1");
+            }
         }
 
         private void Two_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("2");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("2");
+            }
         }
 
         private void Three_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("3");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("3");
+            }
         }
 
         private void Four_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("4");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("4");
+            }
         }
 
         private void Five_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("5");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("5");
+            }
         }
 
         private void Six_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("6");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("6");
+            }
         }
 
         private void Seven_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("7");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("7");
+            }
         }
 
         private void Eight_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("8");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("8");
+            }
         }
 
         private void Nine_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("9");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("9");
+            }
         }
 
         private void Zero_Click(object sender, RoutedEventArgs e)
         {
-            numberWriter("0");
+            if ((oldNumber != message) && (display.Content.ToString() != message))
+            {
+
+                numberWriter("0");
+            }
         }
     }
 }
