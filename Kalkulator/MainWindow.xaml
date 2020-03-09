@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kalkulator"
         mc:Ignorable="d"
-        Title="" Height="700" Width="515" Background="Black">
+        Title=""   Background="Black"
+        MaxWidth="515" Width="515" MinWidth="515"
+        MaxHeight="700" Height="700" MinHeight="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -43,7 +45,7 @@
 
         <Button Name="equals" Content="=" Background="Black" Foreground="White" FontSize="70" Grid.Row="5" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2" Click="Equals_Click"/>
         <Button Name="reset" Content="CE" Background="Black" Foreground="White" FontSize="70" Grid.Row="6" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Click="Reset_Click"/>
-        <Button Name="dot" Content="." Background="Black" Foreground="White" FontSize="70" Grid.Row="6" Grid.Column="3" Grid.RowSpan="1" Grid.ColumnSpan="1" Click="Dot_Click"/>
+        <Button Name="dot" Content="err" Background="Black" Foreground="White" FontSize="70" Grid.Row="6" Grid.Column="3" Grid.RowSpan="1" Grid.ColumnSpan="1" Click="Dot_Click"/>
 
         <Button Name="plusMinus" Content="-/+" Background="Black" Foreground="White" FontSize="70" Grid.Row="6" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2" Click="PlusMinus_Click"/>
     </Grid>

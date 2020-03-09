@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,14 @@ namespace Kalkulator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string regionalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        public MainWindow()
+        {
+            InitializeComponent();
+            dot.Content = regionalSeparator;
+        }
+
+
         private const string RESET_OPERATION = "!";
         private string operation = RESET_OPERATION;
         private string oldNumber = "0";
@@ -27,6 +36,7 @@ namespace Kalkulator
         private bool specialClick = false;
         private bool firstOperation = true;
         private string message = "Out of Mem";
+        private string divisionErr = "Err";
 
         private string adjustResult(string number)
         {
@@ -38,7 +48,7 @@ namespace Kalkulator
             {
                 return number;
             }
-            else if (number.Contains("."))
+            else if (number.Contains(regionalSeparator))
             {
                 string adjusted = "";
                 for (int i = 0; i < 9; i++)
@@ -88,11 +98,10 @@ namespace Kalkulator
             }
             else
             {
-                if (number == ".")
+                if (number == regionalSeparator)
                 {
-                    if (currentStatus.Contains('.'))
+                    if (currentStatus.Contains(regionalSeparator))
                     {
-                        numberWriter("-");
                         return;
                     }
                     else
@@ -118,7 +127,6 @@ namespace Kalkulator
 
         private void calculations()
         {
-            test();
             double previous = 0.0;
             double current = 0.0;
             double result = 0.0;
@@ -140,29 +148,36 @@ namespace Kalkulator
                     result = previous * current;
                     break;
                 case "/":
-                    result = previous / current;
+                    if ((previous == 0.0) && (current == 0.0))
+                    {
+                        display.Content = divisionErr;
+                    }
+                    else
+                    {
+                        result = previous / current;
+                    }
                     break;
             }
-            display.Content = adjustResult(result.ToString());
+
+            if (display.Content.ToString() != divisionErr)
+            {
+                display.Content = adjustResult(result.ToString());
+            }
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
 
         private void Dot_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
-                numberWriter(".");
+                numberWriter(regionalSeparator);
             }
         }
 
         private void Equals_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 calculations();
                 update();
@@ -174,7 +189,7 @@ namespace Kalkulator
 
         private void Division_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 operation = "/";
                 handleFirstOperation();
@@ -185,7 +200,7 @@ namespace Kalkulator
 
         private void Multiply_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 operation = "*";
                 handleFirstOperation();
@@ -196,7 +211,7 @@ namespace Kalkulator
 
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 operation = "-";
                 handleFirstOperation();
@@ -207,7 +222,7 @@ namespace Kalkulator
 
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 operation = "+";
                 handleFirstOperation();
@@ -218,7 +233,7 @@ namespace Kalkulator
 
         private void PlusMinus_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
                 if (display.Content.ToString().Contains("-"))
                 {
@@ -248,7 +263,7 @@ namespace Kalkulator
 
         private void One_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("1");
@@ -257,7 +272,7 @@ namespace Kalkulator
 
         private void Two_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("2");
@@ -266,7 +281,7 @@ namespace Kalkulator
 
         private void Three_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("3");
@@ -275,7 +290,7 @@ namespace Kalkulator
 
         private void Four_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("4");
@@ -284,7 +299,7 @@ namespace Kalkulator
 
         private void Five_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("5");
@@ -293,7 +308,7 @@ namespace Kalkulator
 
         private void Six_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("6");
@@ -302,7 +317,7 @@ namespace Kalkulator
 
         private void Seven_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("7");
@@ -311,7 +326,7 @@ namespace Kalkulator
 
         private void Eight_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("8");
@@ -320,7 +335,7 @@ namespace Kalkulator
 
         private void Nine_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("9");
@@ -329,7 +344,7 @@ namespace Kalkulator
 
         private void Zero_Click(object sender, RoutedEventArgs e)
         {
-            if ((oldNumber != message) && (display.Content.ToString() != message))
+            if ((oldNumber != message) && (display.Content.ToString() != message) && (display.Content.ToString() != divisionErr))
             {
 
                 numberWriter("0");
