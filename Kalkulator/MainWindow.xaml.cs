@@ -148,7 +148,7 @@ namespace Kalkulator
                     result = previous * current;
                     break;
                 case "/":
-                    if ((previous == 0.0) && (current == 0.0))
+                    if (current == 0.0)
                     {
                         display.Content = divisionErr;
                     }
